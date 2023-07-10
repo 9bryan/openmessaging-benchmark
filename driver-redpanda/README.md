@@ -5,6 +5,10 @@
 - Terraform
 
 - Ansible
+    And modules:  
+    - geerlingguy.node_exporter
+    - cloudalchemy.prometheus
+    - cloudalchemy.grafana
 
 - Python 3 set as default.
 
@@ -17,14 +21,19 @@
 2. Create an ssh key for the benchmark using the following: `ssh-keygen -f ~/.ssh/redpanda_aws`. Set the password to blank.
 
 3. In the `driver-redpanda/deploy` directory.  Run the following: 
-
+```
 	cp terraform.tfvars.example terraform.tfvars
         terraform init
         terraform apply -auto-approve
+```
 
 4. To setup the deployed nodes. Run:
 
+```
         ansible-playbook deploy.yaml
+```
+NOTE: You might experience an issue with child forks crashing.  In that case,
+try running this `export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES` and deploying again.
 
 ## Running the benchmark
 
